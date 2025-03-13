@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro para Curso</title>
+    <!-- Google Fonts -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(120deg, #4ade80 0%, #16a34a 100%);
+            margin: 0;
+            padding: 20px;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Estilos para las burbujas */
+        .bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            top: 0;
+            left: 0;
+        }
+        
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: rise 10s infinite ease-in;
+        }
+        
+        .bubble:nth-child(1) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 8s;
+        }
+        
+        .bubble:nth-child(2) {
+            width: 20px;
+            height: 20px;
+            left: 20%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+        
+        .bubble:nth-child(3) {
+            width: 50px;
+            height: 50px;
+            left: 35%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+        
+        .bubble:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            animation-duration: 11s;
+            animation-delay: 0s;
+        }
+        
+        .bubble:nth-child(5) {
+            width: 35px;
+            height: 35px;
+            left: 55%;
+            animation-duration: 6s;
+            animation-delay: 1s;
+        }
+        
+        .bubble:nth-child(6) {
+            width: 45px;
+            height: 45px;
+            left: 65%;
+            animation-duration: 8s;
+            animation-delay: 3s;
+        }
+        
+        .bubble:nth-child(7) {
+            width: 25px;
+            height: 25px;
+            left: 75%;
+            animation-duration: 7s;
+            animation-delay: 2s;
+        }
+        
+        .bubble:nth-child(8) {
+            width: 80px;
+            height: 80px;
+            left: 80%;
+            animation-duration: 12s;
+            animation-delay: 2s;
+        }
+        
+        .bubble:nth-child(9) {
+            width: 15px;
+            height: 15px;
+            left: 70%;
+            animation-duration: 5s;
+            animation-delay: 1s;
+        }
+        
+        .bubble:nth-child(10) {
+            width: 50px;
+            height: 50px;
+            left: 85%;
+            animation-duration: 10s;
+            animation-delay: 4s;
+        }
+        
+        @keyframes rise {
+            0% {
+                bottom: -100px;
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                bottom: 1080px;
+                transform: translateX(-200px);
+            }
+        }
+        
+        .card {
+            width: 100%;
+            max-width: 550px;
+            padding: 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .card-header {
+            background-color: #16a34a;
+            color: white;
+            padding: 25px 30px;
+            position: relative;
+        }
+        
+        .card-header h3 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 24px;
+        }
+        
+        .card-header p {
+            margin: 8px 0 0;
+            opacity: 0.8;
+            font-size: 15px;
+        }
+        
+        .card-body {
+            padding: 30px;
+            background-color: white;
+        }
+        
+        .form-outline {
+            margin-bottom: 20px;
+        }
+        
+        .form-outline .form-control:focus {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 0.25rem rgba(22, 163, 74, 0.25);
+        }
+        
+        .form-outline .form-label {
+            color: #555;
+        }
+        
+        .form-outline.focused .form-label {
+            color: #16a34a;
+        }
+        
+        .btn-primary {
+            background-color: #16a34a;
+            width: 100%;
+            padding: 12px;
+            font-weight: 500;
+            font-size: 16px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #15803d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.4);
+        }
+        
+        .form-control.is-invalid {
+            border-color: #dc3545;
+            box-shadow: none;
+        }
+        
+        .invalid-feedback {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        select.form-select {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            color: #666;
+        }
+        
+        select.form-select:focus {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 0.25rem rgba(22, 163, 74, 0.25);
+        }
+        
+        .form-check {
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .form-check-input:checked {
+            background-color: #16a34a;
+            border-color: #16a34a;
+        }
+        
+        .form-icon {
+            color: #16a34a;
+            margin-right: 10px;
+        }
+        
+        .success-message {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor para las burbujas animadas -->
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h3><i class="fas fa-graduation-cap me-2"></i>Registro para Curso</h3>
+            <p>Complete el formulario para inscribirse en nuestros cursos especializados</p>
+        </div>
+        <div class="card-body">
+            <div class="success-message" id="success-alert">
+                <i class="fas fa-check-circle me-2"></i>¡Registro exitoso! Nos pondremos en contacto contigo pronto.
+            </div>
+            
+            <form id="registration-form">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-outline">
+                            <input type="text" id="nombre" class="form-control" required />
+                            <label class="form-label" for="nombre">Nombre</label>
+                        </div>
+                        <div class="invalid-feedback" id="nombre-error">Por favor ingrese su nombre</div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3">
+                        <div class="form-outline">
+                            <input type="text" id="apellido" class="form-control" required />
+                            <label class="form-label" for="apellido">Apellido</label>
+                        </div>
+                        <div class="invalid-feedback" id="apellido-error">Por favor ingrese su apellido</div>
+                    </div>
+                </div>
+                
+                <div class="form-outline mb-3">
+                    <input type="email" id="email" class="form-control" required />
+                    <label class="form-label" for="email">Correo Electrónico</label>
+                    <div class="invalid-feedback" id="email-error">Por favor ingrese un correo electrónico válido</div>
+                </div>
+                
+                <div class="form-outline mb-3">
+                    <input type="tel" id="telefono" class="form-control" required />
+                    <label class="form-label" for="telefono">Teléfono</label>
+                    <div class="invalid-feedback" id="telefono-error">Por favor ingrese un número de teléfono válido</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label d-block mb-2">Curso de Interés</label>
+                    <select class="form-select" id="curso" required>
+                        <option value="" disabled selected>Seleccione un curso</option>
+                        <option value="1">Desarrollo Web Fullstack</option>
+                        <option value="2">Diseño UX/UI</option>
+                        <option value="3">Marketing Digital Avanzado</option>
+                        <option value="4">Ciencia de Datos y Machine Learning</option>
+                        <option value="5">Desarrollo de Aplicaciones Móviles</option>
+                    </select>
+                    <div class="invalid-feedback" id="curso-error">Por favor seleccione un curso</div>
+                </div>
+                
+                <div class="form-outline mb-3">
+                    <textarea id="comentarios" class="form-control" rows="4"></textarea>
+                    <label class="form-label" for="comentarios">Comentarios Adicionales</label>
+                </div>
+                
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="terminos" required />
+                    <label class="form-check-label" for="terminos">
+                        Acepto los <a href="#" class="text-success">términos y condiciones</a>
+                    </label>
+                    <div class="invalid-feedback" id="terminos-error">Debe aceptar los términos y condiciones</div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane me-2"></i>Completar Registro
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.0/mdb.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicialización de los elementos del formulario
+            document.querySelectorAll('.form-outline').forEach((formOutline) => {
+                new mdb.Input(formOutline).init();
+            });
+            
+            // Crear más burbujas aleatoriamente
+            setInterval(function() {
+                const bubblesContainer = document.querySelector('.bubbles');
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                
+                // Posición aleatoria
+                const size = Math.random() * 60 + 10;
+                const left = Math.random() * 100;
+                
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${left}%`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                
+                bubblesContainer.appendChild(bubble);
+                
+                // Eliminar la burbuja después de que termine la animación
+                setTimeout(() => {
+                    bubble.remove();
+                }, 15000);
+            }, 3000);
+            
+            // Validación del formulario
+            const form = document.getElementById('registration-form');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                // Validar nombre
+                const nombre = document.getElementById('nombre');
+                if (!nombre.value.trim()) {
+                    nombre.classList.add('is-invalid');
+                    document.getElementById('nombre-error').style.display = 'block';
+                    isValid = false;
+                } else {
+                    nombre.classList.remove('is-invalid');
+                    document.getElementById('nombre-error').style.display = 'none';
+                }
+                
+                // Validar apellido
+                const apellido = document.getElementById('apellido');
+                if (!apellido.value.trim()) {
+                    apellido.classList.add('is-invalid');
+                    document.getElementById('apellido-error').style.display = 'block';
+                    isValid = false;
+                } else {
+                    apellido.classList.remove('is-invalid');
+                    document.getElementById('apellido-error').style.display = 'none';
+                }
+                
+                // Validar email
+                const email = document.getElementById('email');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    email.classList.add('is-invalid');
+                    document.getElementById('email-error').style.display = 'block';
+                    isValid = false;
+                } else {
+                    email.classList.remove('is-invalid');
+                    document.getElementById('email-error').style.display = 'none';
+                }
+                
+                // Validar teléfono
+                const telefono = document.getElementById('telefono');
+                if (!telefono.value.trim() || isNaN(telefono.value.replace(/\s/g, ''))) {
+                    telefono.classList.add('is-invalid');
+                    document.getElementById('telefono-error').style.display = 'block';
+                    isValid = false;
+                } else {
+                    telefono.classList.remove('is-invalid');
+                    document.getElementById('telefono-error').style.display = 'none';
+                }
+                
+                // Validar curso
+                const curso = document.getElementById('curso');
+                if (!curso.value) {
+                    curso.classList.add('is-invalid');
+                    document.getElementById('curso-error').style.display = 'block';
+                    isValid = false;
+                } else {
+                    curso.classList.remove('is-invalid');
+                    document.getElementById('curso-error').style.display = 'none';
+                }
+                
+                // Validar términos
+                const terminos = document.getElementById('terminos');
+                if (!terminos.checked) {
+                    terminos.classList.add('is-invalid');
+                    document.getElementById('terminos-error').style.display = 'block';
+                    isValid = false;
+                } else {
+                    terminos.classList.remove('is-invalid');
+                    document.getElementById('terminos-error').style.display = 'none';
+                }
+                
+                if (isValid) {
+                    // Mostrar mensaje de éxito
+                    document.getElementById('success-alert').style.display = 'block';
+                    
+                    // Limpiar el formulario
+                    form.reset();
+                    document.querySelectorAll('.form-outline').forEach((formOutline) => {
+                        new mdb.Input(formOutline).init();
+                    });
+                    
+                    // Ocultar mensaje después de 5 segundos
+                    setTimeout(function() {
+                        document.getElementById('success-alert').style.display = 'none';
+                    }, 5000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
